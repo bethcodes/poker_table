@@ -11,3 +11,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+th, td {
+  width: 5em;
+  text-align: left;
+}
+
+.hero {
+  background: lightskyblue;
+}
+
+.current {
+  background: lightgray;
+}
+
+.current.hero {
+  background: cadetblue;
+}
+
+.Labels {
+  color: darkgray;
+  font-weight: normal;
+}
+
+.folded {
+  font-size: 0.8em;
+  color: darkgray;
+}

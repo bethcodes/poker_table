@@ -1,23 +1,41 @@
 import logo from './logo.svg';
 import './App.css';
+import PokerTable from "./PokerTable";
 
 function App() {
+  const history = {
+    cards: {
+      flop: "Ah7d8s",
+      turn: "Ad",
+      river: null
+    },
+    individuals: [
+      {
+        initials: "AC",
+        pot: 600,
+      },
+      {
+        initials: "GH",
+        pot: 1600,
+        hero: true
+      },
+      {
+        initials: "RO",
+        pot: 60,
+      },
+      {
+        initials: "LP",
+        pot: 39292929,
+        current: true
+      }
+    ],
+    actions: [
+      {initials: "RO", action: "fold"}
+    ]
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React or not
-        </a>
-      </header>
+      <PokerTable history={history} />
     </div>
   );
 }

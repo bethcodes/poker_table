@@ -4,7 +4,7 @@ export default function Cards({cards}) {
   const {flop, turn, river} = cards;
   return (
     <tr className="Cards">
-      <th />
+      <th/>
       <th>{flop}</th>
       <th>{turn}</th>
       <th>{river}</th>

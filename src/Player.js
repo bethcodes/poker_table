@@ -1,7 +1,7 @@
 import React from "react";
 import Bet from "./Bet";
 
-function summarizeActions(actions) {
+function summarizeActions(actions) { // promote this to a component eventually
   return actions.map(each => summarizeAction(each)).join(", ");
 }
 
@@ -29,10 +29,9 @@ export default function Player({name, hand}) {
       <td>{name}</td>
       <td>{hand.stack(name)}</td>
       <td>{summarizeActions(hand.preflopActions(name))}</td>
-      <td>flop</td>
-      <td>turn</td>
-      <td>river</td>
-      <Bet name={name} hand={hand}/>
+      <td>{summarizeActions(hand.flopActions(name))}</td>
+      <td>{summarizeActions(hand.turnActions(name))}</td>
+      <td>{summarizeActions(hand.riverActions(name))}</td>
     </tr>
   )
 }

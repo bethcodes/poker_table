@@ -102,11 +102,23 @@ class HandHistory {
     }
 
     preflopActions(player) {
-        const results = [];
-        const flopIndex = this.actions.findIndex(each => each.action === 'flop');
-        const pinned = flopIndex == -1 ? this.actions.length : flopIndex;
-        const preFlop = this.actions.slice(0, flopIndex);
+        const preFlop = this.actions.slice(0, this.flopIndex());
         return preFlop.filter(each => each.player === player && ['check', 'bet', 'fold'].includes(each.action));
+    }
+
+    flopActions(player) {
+        const flop = this.actions.slice(this.flopIndex(), this.turnIndex());
+        return flop.filter(each => each.player === player && ['check', 'bet', 'fold'].includes(each.action));
+    }
+
+    turnActions(player) {
+        const turn = this.actions.slice(this.turnIndex(), this.riverIndex());
+        return turn.filter(each => each.player === player && ['check', 'bet', 'fold'].includes(each.action));
+    }
+
+    riverActions(player) {
+        const turn = this.actions.slice(this.riverIndex(), this.actions.length);
+        return turn.filter(each => each.player === player && ['check', 'bet', 'fold'].includes(each.action));
     }
 
     // Utilities
@@ -114,7 +126,21 @@ class HandHistory {
     actionsFor(player) {
         return this.actions.filter(each => each.player === player);
     }
+    
+    flopIndex() {
+        const index = this.actions.findIndex(each => each.action === 'flop');
+        return index == -1 ? this.actions.length : index;
+    }
 
+    turnIndex() {
+        const index = this.actions.findIndex(each => each.action === 'turn');
+        return index == -1 ? this.actions.length : index;
+    }
+
+    riverIndex() {
+        const index = this.actions.findIndex(each => each.action === 'river');
+        return index == -1 ? this.actions.length : index;
+    }
 }
 
 // actions for player, street

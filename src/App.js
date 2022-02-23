@@ -20,7 +20,8 @@ function App() {
   hand.check('KB');
   hand.check('BA');
   hand.dealRiver('5c');
-  hand.actionOn('KB');
+  hand.check('KB')
+  hand.actionOn('BA');
 
   const history = {
     cards: {

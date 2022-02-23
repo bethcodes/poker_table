@@ -7,12 +7,14 @@ export default function PokerTable({history}) {
   return (
     <table className="PokerTable">
       <thead className="Labels">
-        <th/>
-        <th>Pot</th>
-        <th>Pre</th>
-        <th>Flop</th>
-        <th>Turn</th>
-        <th>River</th>
+        <tr>
+          <th></th>
+          <th>Pot</th>
+          <th>Pre</th>
+          <th>Flop</th>
+          <th>Turn</th>
+          <th>River</th>
+        </tr>
       </thead>
       <thead>
         <Cards cards={cards} />

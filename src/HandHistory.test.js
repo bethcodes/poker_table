@@ -40,6 +40,24 @@ test('folding', () => {
     expect(hand.isFolded('BA')).toBe(true);
 })
 
+test('preflop actions', () => {
+    const hand = new HandHistory('KB', 'AdJh');
+    hand.addStack('KB', 100);
+    hand.addStack('BA', 200);
+    hand.addBet('KB', 50);
+    hand.fold('BA');
+    const kb = hand.preflopActions('KB');
+    expect(kb.length).toBe(1);
+    expect(kb[0].action).toBe('bet');
+})
+
+test('players', () => {
+    const hand = new HandHistory('KB', 'AdJh');
+    hand.addStack('KB', 100);
+    hand.addStack('BA', 200);
+    expect(hand.players()).toEqual(['KB', 'BA']);
+})
+
 test('flop', () => {
     const hand = new HandHistory('KB', 'AdJh');
     hand.addStack('KB', 100);

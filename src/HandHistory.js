@@ -63,6 +63,11 @@ class HandHistory {
         const bets = this.actions.filter(each => each.action === 'bet');
         return bets.reduce((prev, each) => prev + each.amount, 0);
     }
+
+    players() {
+        const stacks = this.actions.filter(each => each.action === 'stack');
+        return stacks.map(each => each.player);
+    }
     
     cards() {
         return this.heroCards;
@@ -94,6 +99,14 @@ class HandHistory {
     river() {
         const action = this.actions.find(each => each.action === 'river');
         return action ? action.card : undefined;
+    }
+
+    preflopActions(player) {
+        const results = [];
+        const flopIndex = this.actions.findIndex(each => each.action === 'flop');
+        const pinned = flopIndex == -1 ? this.actions.length : flopIndex;
+        const preFlop = this.actions.slice(0, flopIndex);
+        return preFlop.filter(each => each.player === player && ['check', 'bet', 'fold'].includes(each.action));
     }
 
     // Utilities

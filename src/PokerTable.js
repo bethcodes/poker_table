@@ -1,8 +1,8 @@
 import React from "react";
 import Cards from "./Cards";
-import Individual from "./Individual";
+import Player from "./Player";
 
-export default function PokerTable({history}) {
+export default function PokerTable({history, hand}) {
   const {cards, individuals, actions} = history;
   return (
     <table className="PokerTable">
@@ -17,10 +17,10 @@ export default function PokerTable({history}) {
         </tr>
       </thead>
       <thead>
-        <Cards cards={cards} />
+        <Cards hand={hand} />
       </thead>
       <tbody>
-        { individuals.map((individual, i) => <Individual seat={i}  key={individual.initials} individual={individual} actions={actions} /> )}
+        { hand.players().map((each, i) => <Player key={each} name={each} hand={hand}/> )}
       </tbody>
     </table>
   );

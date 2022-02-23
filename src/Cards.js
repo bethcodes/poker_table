@@ -1,13 +1,14 @@
 import React, {Fragment} from "react";
 
-export default function Cards({cards}) {
-  const {flop, turn, river} = cards;
+export default function Cards({hand}) {
   return (
     <tr className="Cards">
       <th/>
-      <th>{flop}</th>
-      <th>{turn}</th>
-      <th>{river}</th>
+      <th>{hand.pot()}</th>
+      <th>{hand.cards()}</th>
+      <th>{hand.flop()}</th>
+      <th>{hand.turn()}</th>
+      <th>{hand.river()}</th>
     </tr>
   )
 }

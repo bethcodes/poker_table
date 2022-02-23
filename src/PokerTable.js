@@ -3,7 +3,6 @@ import Cards from "./Cards";
 import Player from "./Player";
 
 export default function PokerTable({history, hand}) {
-  const {cards, individuals, actions} = history;
   return (
     <table className="PokerTable">
       <thead className="Labels">

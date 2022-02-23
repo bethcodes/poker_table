@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import PokerTable from "./PokerTable";
 import HandHistory from './HandHistory';
@@ -23,39 +22,9 @@ function App() {
   hand.check('KB')
   hand.actionOn('BA');
 
-  const history = {
-    cards: {
-      flop: "Ah7d8s",
-      turn: "Ad",
-      river: null
-    },
-    individuals: [
-      {
-        initials: "AC",
-        pot: 600,
-      },
-      {
-        initials: "GH",
-        pot: 1600,
-        hero: true
-      },
-      {
-        initials: "RO",
-        pot: 60,
-      },
-      {
-        initials: "LP",
-        pot: 39292929,
-        current: true
-      }
-    ],
-    actions: [
-      {initials: "RO", action: "fold"}
-    ]
-  }
   return (
     <div className="App">
-      <PokerTable history={history} hand={hand} />
+      <PokerTable hand={hand} />
     </div>
   );
 }

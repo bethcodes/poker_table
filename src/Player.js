@@ -1,5 +1,4 @@
 import React from "react";
-import Bet from "./Bet";
 
 function summarizeActions(actions) { // promote this to a component eventually
   return actions.map(each => summarizeAction(each)).join(", ");

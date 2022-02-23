@@ -1,5 +1,6 @@
-import React, {Fragment} from "react";
+import React from "react";
 
+// Rename to Board?
 export default function Cards({hand}) {
   return (
     <tr className="Cards">

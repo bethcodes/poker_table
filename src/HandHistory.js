@@ -46,7 +46,7 @@ class HandHistory {
 
     stack(player) {
         var result = 0;
-        this.actionsFor(player).map(each => {
+        this.actionsFor(player).forEach(each => {
             switch(each.action) {
                 case 'stack':
                     result += each.amount;
@@ -129,17 +129,17 @@ class HandHistory {
     
     flopIndex() {
         const index = this.actions.findIndex(each => each.action === 'flop');
-        return index == -1 ? this.actions.length : index;
+        return index === -1 ? this.actions.length : index;
     }
 
     turnIndex() {
         const index = this.actions.findIndex(each => each.action === 'turn');
-        return index == -1 ? this.actions.length : index;
+        return index === -1 ? this.actions.length : index;
     }
 
     riverIndex() {
         const index = this.actions.findIndex(each => each.action === 'river');
-        return index == -1 ? this.actions.length : index;
+        return index === -1 ? this.actions.length : index;
     }
 }
 

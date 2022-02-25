@@ -1,24 +1,25 @@
 import React from "react";
 import Cards from "./Cards";
-import Individual from "./Individual";
+import Player from "./Player";
 
-export default function PokerTable({history}) {
-  const {cards, individuals, actions} = history;
+export default function PokerTable({history, hand}) {
   return (
     <table className="PokerTable">
       <thead className="Labels">
-        <th/>
-        <th>Pot</th>
-        <th>Pre</th>
-        <th>Flop</th>
-        <th>Turn</th>
-        <th>River</th>
+        <tr>
+          <th></th>
+          <th>Pot</th>
+          <th>Pre</th>
+          <th>Flop</th>
+          <th>Turn</th>
+          <th>River</th>
+        </tr>
       </thead>
       <thead>
-        <Cards cards={cards} />
+        <Cards hand={hand} />
       </thead>
       <tbody>
-        { individuals.map((individual, i) => <Individual seat={i}  key={individual.initials} individual={individual} actions={actions} /> )}
+        { hand.players().map(each => <Player key={each} name={each} hand={hand}/> )}
       </tbody>
     </table>
   );

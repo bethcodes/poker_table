@@ -1,41 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
 import PokerTable from "./PokerTable";
+import HandHistory from './HandHistory';
 
 function App() {
-  const history = {
-    cards: {
-      flop: "Ah7d8s",
-      turn: "Ad",
-      river: null
-    },
-    individuals: [
-      {
-        initials: "AC",
-        pot: 600,
-      },
-      {
-        initials: "GH",
-        pot: 1600,
-        hero: true
-      },
-      {
-        initials: "RO",
-        pot: 60,
-      },
-      {
-        initials: "LP",
-        pot: 39292929,
-        current: true
-      }
-    ],
-    actions: [
-      {initials: "RO", action: "fold"}
-    ]
-  }
+  const hand = new HandHistory('KB', 'AdJh');
+  hand.sit('KB', 100);
+  hand.sit('BA', 200);
+  hand.sit('LA', 150);
+  hand.bet('KB', 3);
+  hand.bet('BA', 5);
+  hand.fold('LA');
+  hand.bet('KB', 2);
+  hand.check('BA');
+  hand.dealFlop('3d7h9c');
+  hand.check('KB');
+  hand.check('BA');
+  hand.dealTurn('4d');
+  hand.check('KB');
+  hand.check('BA');
+  hand.dealRiver('5c');
+  hand.check('KB')
+  hand.actionOn('BA');
+
   return (
     <div className="App">
-      <PokerTable history={history} />
+      <PokerTable hand={hand} />
     </div>
   );
 }

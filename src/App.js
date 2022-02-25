@@ -4,13 +4,13 @@ import HandHistory from './HandHistory';
 
 function App() {
   const hand = new HandHistory('KB', 'AdJh');
-  hand.addStack('KB', 100);
-  hand.addStack('BA', 200);
-  hand.addStack('LA', 150);
-  hand.addBet('KB', 3);
-  hand.addBet('BA', 5);
+  hand.sit('KB', 100);
+  hand.sit('BA', 200);
+  hand.sit('LA', 150);
+  hand.bet('KB', 3);
+  hand.bet('BA', 5);
   hand.fold('LA');
-  hand.addBet('KB', 2);
+  hand.bet('KB', 2);
   hand.check('BA');
   hand.dealFlop('3d7h9c');
   hand.check('KB');

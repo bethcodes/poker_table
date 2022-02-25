@@ -19,7 +19,7 @@ export default function PokerTable({history, hand}) {
         <Cards hand={hand} />
       </thead>
       <tbody>
-        { hand.players().map((each, i) => <Player key={each} name={each} hand={hand}/> )}
+        { hand.players().map(each => <Player key={each} name={each} hand={hand}/> )}
       </tbody>
     </table>
   );

@@ -10,11 +10,11 @@ class HandHistory {
 
     // Actions
 
-    addStack(player, amount) {
+    sit(player, amount) {
         this.actions.push({action: 'stack', player: player, amount: amount});
     }
 
-    addBet(player, amount) {
+    bet(player, amount) {
         this.actions.push({action: 'bet', player: player, amount: amount});
     }
 

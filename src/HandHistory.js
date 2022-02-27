@@ -12,8 +12,7 @@ class HandHistory {
     // Actions
 
     sit(player, amount) {
-        this.actions.push({action: 'stack', player: player, amount: amount});
-        return this;
+        return this._withAction({action: 'stack', player: player, amount: amount});
     }
 
     bet(player, amount) {
@@ -149,6 +148,19 @@ class HandHistory {
     riverIndex() {
         const index = this.actions.findIndex(each => each.action === 'river');
         return index === -1 ? this.actions.length : index;
+    }
+
+    get state() {
+        return {
+            player: this.hero,
+            cards: this.heroCards,
+            actions: this.actions,
+            actingNext: this.actingNext
+        }
+    }
+
+    _withAction(action) {
+        return new HandHistory({...this.state, actions: [...this.actions, action]});
     }
 }
 

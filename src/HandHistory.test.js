@@ -1,20 +1,22 @@
 import HandHistory from './HandHistory.js';
 
+const STARTING_CONFIGURATION = {player: 'KB', cards: 'AdJh'};
+
 test('stack', () => {
-    const hand = new HandHistory('KB', 'AdJh')
+    const hand = new HandHistory(STARTING_CONFIGURATION)
         .sit('KB', 100);
     expect(hand.stack('KB')).toBe(100);
 });
 
 test('bet reduces stack', () => {
-    const hand = new HandHistory('KB', 'AdJh')
+    const hand = new HandHistory(STARTING_CONFIGURATION)
         .sit('KB', 100)
         .bet('KB', 40);
     expect(hand.stack('KB')).toBe(60);
 });
 
 test('bet increases pot', () => {
-    const hand = new HandHistory('KB', 'AdJh')
+    const hand = new HandHistory(STARTING_CONFIGURATION)
         .sit('KB', 100);
     expect(hand.pot()).toBe(0);
     const afterBet = hand.bet('KB', 40)
@@ -23,7 +25,7 @@ test('bet increases pot', () => {
 });
 
 test('hand & hero', () => {
-    const hand = new HandHistory('KB', 'AdJh')
+    const hand = new HandHistory(STARTING_CONFIGURATION)
         .sit('BA', 200);
     expect(hand.cards()).toBe('AdJh');
     expect(hand.isHero('KB')).toBe(true);
@@ -31,7 +33,7 @@ test('hand & hero', () => {
 });
 
 test('folding', () => {
-    const hand = new HandHistory('KB', 'AdJh')
+    const hand = new HandHistory(STARTING_CONFIGURATION)
         .sit('KB', 100)
         .sit('BA', 200)
         .bet('KB', 50)
@@ -41,7 +43,7 @@ test('folding', () => {
 })
 
 test('preflop actions', () => {
-    const hand = new HandHistory('KB', 'AdJh')
+    const hand = new HandHistory(STARTING_CONFIGURATION)
         .sit('KB', 100)
         .sit('BA', 200)
         .bet('KB', 50)
@@ -52,14 +54,14 @@ test('preflop actions', () => {
 })
 
 test('players', () => {
-    const hand = new HandHistory('KB', 'AdJh')
+    const hand = new HandHistory(STARTING_CONFIGURATION)
         .sit('KB', 100)
         .sit('BA', 200);
     expect(hand.players()).toEqual(['KB', 'BA']);
 })
 
 test('flop', () => {
-    const hand = new HandHistory('KB', 'AdJh')
+    const hand = new HandHistory(STARTING_CONFIGURATION)
         .sit('KB', 100)
         .sit('BA', 200)
         .sit('LA', 150)
@@ -77,7 +79,7 @@ test('flop', () => {
 })
 
 test('no flop', () => {
-    const hand = new HandHistory('KB', 'AdJh')
+    const hand = new HandHistory(STARTING_CONFIGURATION)
         .sit('KB', 100)
         .sit('BA', 200)
         .sit('LA', 150)
@@ -89,7 +91,7 @@ test('no flop', () => {
 })
 
 test('turn', () => {
-    const hand = new HandHistory('KB', 'AdJh')
+    const hand = new HandHistory(STARTING_CONFIGURATION)
         .sit('KB', 100)
         .sit('BA', 200)
         .sit('LA', 150)
@@ -108,7 +110,7 @@ test('turn', () => {
 })
 
 test('river', () => {
-    const hand = new HandHistory('KB', 'AdJh')
+    const hand = new HandHistory(STARTING_CONFIGURATION)
         .sit('KB', 100)
         .sit('BA', 200)
         .sit('LA', 150)

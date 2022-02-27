@@ -3,7 +3,7 @@ import PokerTable from "./PokerTable";
 import HandHistory from './HandHistory';
 
 function App() {
-  const hand = new HandHistory('KB', 'AdJh')
+  const hand = new HandHistory({player: 'KB', cards: 'AdJh'})
     .sit('KB', 100)
     .sit('BA', 200)
     .sit('LA', 150)

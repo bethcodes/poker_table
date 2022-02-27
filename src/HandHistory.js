@@ -1,9 +1,10 @@
 class HandHistory {
 
-    constructor(player, cards, actions = []) {
+    constructor({player, cards, actions = [], actingNext = null}) {
         this.actions = actions;
         this.hero = player;
         this.heroCards = cards;
+        this.actingNext = actingNext;
     }
 
     // After you build one then for fuck's sake don't modify it. I'm trusting you.
@@ -46,7 +47,7 @@ class HandHistory {
     }
 
     actionOn(player) {
-        this.actionOn = player;
+        this.actingNext = player;
         return this;
     }
 
@@ -91,7 +92,7 @@ class HandHistory {
     }
 
     hasAction(player) {
-        return this.actionOn === player;
+        return this.actingNext === player;
     }
 
     flop() {

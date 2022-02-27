@@ -16,38 +16,31 @@ class HandHistory {
     }
 
     bet(player, amount) {
-        this.actions.push({action: 'bet', player: player, amount: amount});
-        return this;
+        return this._withAction({action: 'bet', player: player, amount: amount});
     }
 
     fold(player) {
-        this.actions.push({action: 'fold', player: player});
-        return this;
+        return this._withAction({action: 'fold', player: player});
     }
 
     check(player) {
-        this.actions.push({action: 'check', player: player});
-        return this;
+        return this._withAction({action: 'check', player: player});
     }
 
     dealFlop(cards) {
-        this.actions.push({action: 'flop', cards: cards});
-        return this;
+        return this._withAction({action: 'flop', cards: cards});
     }
 
     dealTurn(card) {
-        this.actions.push({action: 'turn', card: card});
-        return this;
+        return this._withAction({action: 'turn', card: card});
     }
 
     dealRiver(card) {
-        this.actions.push({action: 'river', card: card});
-        return this;
+        return this._withAction({action: 'river', card: card});
     }
 
     actionOn(player) {
-        this.actingNext = player;
-        return this;
+        return new HandHistory({...this.state, actingNext: player});
     }
 
     // Queries

@@ -1,7 +1,7 @@
 class HandHistory {
 
-    constructor(player, cards) {
-        this.actions = [];
+    constructor(player, cards, actions = []) {
+        this.actions = actions;
         this.hero = player;
         this.heroCards = cards;
     }

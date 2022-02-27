@@ -12,34 +12,42 @@ class HandHistory {
 
     sit(player, amount) {
         this.actions.push({action: 'stack', player: player, amount: amount});
+        return this;
     }
 
     bet(player, amount) {
         this.actions.push({action: 'bet', player: player, amount: amount});
+        return this;
     }
 
     fold(player) {
         this.actions.push({action: 'fold', player: player});
+        return this;
     }
 
     check(player) {
         this.actions.push({action: 'check', player: player});
+        return this;
     }
 
     dealFlop(cards) {
         this.actions.push({action: 'flop', cards: cards});
+        return this;
     }
 
     dealTurn(card) {
         this.actions.push({action: 'turn', card: card});
+        return this;
     }
 
     dealRiver(card) {
         this.actions.push({action: 'river', card: card});
+        return this;
     }
 
     actionOn(player) {
         this.actionOn = player;
+        return this;
     }
 
     // Queries

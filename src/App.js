@@ -3,24 +3,24 @@ import PokerTable from "./PokerTable";
 import HandHistory from './HandHistory';
 
 function App() {
-  const hand = new HandHistory('KB', 'AdJh');
-  hand.sit('KB', 100);
-  hand.sit('BA', 200);
-  hand.sit('LA', 150);
-  hand.bet('KB', 3);
-  hand.bet('BA', 5);
-  hand.fold('LA');
-  hand.bet('KB', 2);
-  hand.check('BA');
-  hand.dealFlop('3d7h9c');
-  hand.check('KB');
-  hand.check('BA');
-  hand.dealTurn('4d');
-  hand.check('KB');
-  hand.check('BA');
-  hand.dealRiver('5c');
-  hand.check('KB')
-  hand.actionOn('BA');
+  const hand = new HandHistory('KB', 'AdJh')
+    .sit('KB', 100)
+    .sit('BA', 200)
+    .sit('LA', 150)
+    .bet('KB', 3)
+    .bet('BA', 5)
+    .fold('LA')
+    .bet('KB', 2)
+    .check('BA')
+    .dealFlop('3d7h9c')
+    .check('KB')
+    .check('BA')
+    .dealTurn('4d')
+    .check('KB')
+    .check('BA')
+    .dealRiver('5c')
+    .check('KB')
+    .actionOn('BA');
 
   return (
     <div className="App">

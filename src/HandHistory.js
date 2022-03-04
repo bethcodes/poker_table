@@ -1,9 +1,20 @@
+const ACTIONS = {
+    stack: 'stack',
+    bet: 'bet',
+    fold: 'fold',
+    check: 'check',
+    flop: 'flop',
+    turn: 'turn',
+    river: 'river'
+};
+
 class HandHistory {
 
-    constructor(player, cards) {
-        this.actions = [];
+    constructor({player, cards, actions = [], actingNext = null}) {
+        this.actions = actions;
         this.hero = player;
         this.heroCards = cards;
+        this.actingNext = actingNext;
     }
 
     // After you build one then for fuck's sake don't modify it. I'm trusting you.
@@ -11,35 +22,35 @@ class HandHistory {
     // Actions
 
     sit(player, amount) {
-        this.actions.push({action: 'stack', player: player, amount: amount});
+        return this._withAction({action: ACTIONS.stack, player: player, amount: amount});
     }
 
     bet(player, amount) {
-        this.actions.push({action: 'bet', player: player, amount: amount});
+        return this._withAction({action: ACTIONS.bet, player: player, amount: amount});
     }
 
     fold(player) {
-        this.actions.push({action: 'fold', player: player});
+        return this._withAction({action: ACTIONS.fold, player: player});
     }
 
     check(player) {
-        this.actions.push({action: 'check', player: player});
+        return this._withAction({action: ACTIONS.check, player: player});
     }
 
     dealFlop(cards) {
-        this.actions.push({action: 'flop', cards: cards});
+        return this._withAction({action: ACTIONS.flop, cards: cards});
     }
 
     dealTurn(card) {
-        this.actions.push({action: 'turn', card: card});
+        return this._withAction({action: ACTIONS.turn, card: card});
     }
 
     dealRiver(card) {
-        this.actions.push({action: 'river', card: card});
+        return this._withAction({action: ACTIONS.river, card: card});
     }
 
     actionOn(player) {
-        this.actionOn = player;
+        return new HandHistory({...this.state, actingNext: player});
     }
 
     // Queries
@@ -48,10 +59,10 @@ class HandHistory {
         var result = 0;
         this.actionsFor(player).forEach(each => {
             switch(each.action) {
-                case 'stack':
+                case ACTIONS.stack:
                     result += each.amount;
                     break;
-                case 'bet':
+                case ACTIONS.bet:
                     result -= each.amount;
                     break;
             }
@@ -60,12 +71,12 @@ class HandHistory {
     }
 
     pot() {
-        const bets = this.actions.filter(each => each.action === 'bet');
+        const bets = this.actions.filter(each => each.action === ACTIONS.bet);
         return bets.reduce((prev, each) => prev + each.amount, 0);
     }
 
     players() {
-        const stacks = this.actions.filter(each => each.action === 'stack');
+        const stacks = this.actions.filter(each => each.action === ACTIONS.stack);
         return stacks.map(each => each.player);
     }
     
@@ -79,46 +90,46 @@ class HandHistory {
     
     isFolded(player) {
         const actions = this.actionsFor(player);
-        return actions[actions.length - 1].action === 'fold';
+        return actions[actions.length - 1].action === ACTIONS.fold;
     }
 
     hasAction(player) {
-        return this.actionOn === player;
+        return this.actingNext === player;
     }
 
     flop() {
-        const action = this.actions.find(each => each.action === 'flop');
+        const action = this.actions.find(each => each.action === ACTIONS.flop);
         return action ? action.cards : undefined;
     }
 
     turn() {
-        const action = this.actions.find(each => each.action === 'turn');
+        const action = this.actions.find(each => each.action === ACTIONS.turn);
         return action ? action.card : undefined;
     }
 
     river() {
-        const action = this.actions.find(each => each.action === 'river');
+        const action = this.actions.find(each => each.action === ACTIONS.river);
         return action ? action.card : undefined;
     }
 
     preflopActions(player) {
         const preFlop = this.actions.slice(0, this.flopIndex());
-        return preFlop.filter(each => each.player === player && ['check', 'bet', 'fold'].includes(each.action));
+        return preFlop.filter(each => each.player === player && [ACTIONS.check, ACTIONS.bet, ACTIONS.fold].includes(each.action));
     }
 
     flopActions(player) {
         const flop = this.actions.slice(this.flopIndex(), this.turnIndex());
-        return flop.filter(each => each.player === player && ['check', 'bet', 'fold'].includes(each.action));
+        return flop.filter(each => each.player === player && [ACTIONS.check, ACTIONS.bet, ACTIONS.fold].includes(each.action));
     }
 
     turnActions(player) {
         const turn = this.actions.slice(this.turnIndex(), this.riverIndex());
-        return turn.filter(each => each.player === player && ['check', 'bet', 'fold'].includes(each.action));
+        return turn.filter(each => each.player === player && [ACTIONS.check, ACTIONS.bet, ACTIONS.fold].includes(each.action));
     }
 
     riverActions(player) {
         const turn = this.actions.slice(this.riverIndex(), this.actions.length);
-        return turn.filter(each => each.player === player && ['check', 'bet', 'fold'].includes(each.action));
+        return turn.filter(each => each.player === player && [ACTIONS.check, ACTIONS.bet, ACTIONS.fold].includes(each.action));
     }
 
     // Utilities
@@ -128,18 +139,31 @@ class HandHistory {
     }
     
     flopIndex() {
-        const index = this.actions.findIndex(each => each.action === 'flop');
+        const index = this.actions.findIndex(each => each.action === ACTIONS.flop);
         return index === -1 ? this.actions.length : index;
     }
 
     turnIndex() {
-        const index = this.actions.findIndex(each => each.action === 'turn');
+        const index = this.actions.findIndex(each => each.action === ACTIONS.turn);
         return index === -1 ? this.actions.length : index;
     }
 
     riverIndex() {
-        const index = this.actions.findIndex(each => each.action === 'river');
+        const index = this.actions.findIndex(each => each.action === ACTIONS.river);
         return index === -1 ? this.actions.length : index;
+    }
+
+    get state() {
+        return {
+            player: this.hero,
+            cards: this.heroCards,
+            actions: this.actions,
+            actingNext: this.actingNext
+        }
+    }
+
+    _withAction(action) {
+        return new HandHistory({...this.state, actions: [...this.actions, action]});
     }
 }
 
